@@ -1,0 +1,44 @@
+:root, [data-bs-theme="light"] {
+    --bs-primary: #6f42c1;
+    --bs-primary-hover: #5e38a4;
+    --bs-primary-active: #59359a;
+    --bs-primary-subtle: #e2d9f3;
+    --bs-primary-subtle-hover: #cdbde9;
+    --bs-primary-subtle-active: #c5b3e6;
+    --bs-primary-emphasis: #432874;
+    --bs-primary-emphasis-hover: #321e57;
+    --bs-primary-border-subtle: #c5b3e6;
+    --bs-primary-rgb: 111, 66, 193;
+    --bs-text-on-primary: #ffffff;
+    --bs-border-radius: 0.375rem;
+    --bs-border-width: 1px;
+}
+
+[data-bs-theme="dark"] {
+    --bs-primary: #a184d7;
+    --bs-primary-hover: #b49ddf;
+    --bs-primary-active: #bda9e3;
+    --bs-primary-subtle: #2c1a4d;
+    --bs-primary-subtle-hover: #321e57;
+    --bs-primary-subtle-active: #432874;
+    --bs-primary-emphasis: #beaae3;
+    --bs-primary-emphasis-hover: #b7a1e0;
+    --bs-primary-border-subtle: #432874;
+    --bs-primary-rgb: 161, 132, 215;
+    --bs-text-on-primary: #000000;
+}
+
+body {
+    background-color: #432874;
+}
+
+#site-name {
+    font-family: "Roboto Mono", monospace;
+    text-transform: uppercase;
+}
+
+#color-picker {
+    --bs-border-color: transparent;
+    --bs-border-radius: var(--bs-border-radius-pill);
+    --bs-border-width: 1px;
+}

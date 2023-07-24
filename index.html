@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Material Style theme builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet"
+          href="https://deploy-preview-100--materialstyle.netlify.app/materialstyle/3.1/dist/css/materialstyle.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="py-2">
+        <div class="d-inline-flex align-items-center gap-1">
+            <img src="https://materialstyle.github.io/assets/images/MSIconNewColorV2.svg" alt="Material Style Logo" style="width:40px; height:40px;">
+            <label id="site-name">Material Style theme builder</label><span class="badge rounded-pill text-bg-info">For Material Style v3.1</span><span class="badge rounded-pill text-bg-warning">In progress</span>
+        </div>
+    </div>
+    <p class="mt-3 fs-4">Personalize Material Style to reflect your product's brand identity</p>
+    <p>Utilize this tool to modify theme colors, border radius, and border widths effortlessly. It automatically generates the necessary CSS and SASS code for you.</p>
+</div>
+
+<div class="container shadow">
+    <div class="row">
+        <div class="col-md-12 bg-white text-body d-flex align-items-center flex-wrap py-3 gap-3 border-bottom border-primary" data-bs-theme="light" style="--bs-border-width: 1px;">
+            <div class="d-flex align-items-center flex-wrap gap-1">
+                <label for="color-picker" class="form-label mb-0">Color</label>
+                <input type="color" class="form-control form-control-color p-1" id="color-picker" value="#6f42c1" title="Choose your color">
+            </div>
+            <div class="d-flex align-items-center flex-wrap gap-1">
+                <label for="border-radius" class="form-label mb-0">Border radius</label>
+                <input type="range" class="form-range" id="border-radius" min="0" max="2" step="0.005" value="0.375" style="width: 250px;">
+            </div>
+            <div class="d-flex align-items-center flex-wrap gap-1">
+                <label for="border-width" class="form-label mb-0">Border width</label>
+                <input type="range" class="form-range" id="border-width" min="1" max="5" step="1" value="1" style="width: 250px;">
+            </div>
+            <div class="d-flex align-items-center flex-wrap gap-1">
+                <label for="color-mode-switch">Dark Mode</label>
+                <div class="form-check form-switch m-0">
+                    <input class="form-check-input" type="checkbox" id="color-mode-switch">
+                    <label class="form-check-label" for="color-mode-switch">OFF</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="components" class="col-md-12 bg-body text-body" data-bs-theme="light">
+            <div class="d-flex justify-content-center align-items-start flex-wrap flex-md-nowrap py-3 gap-2">
+                <div>
+                    <div class="card bg-primary bg-opacity-10" style="max-width: 335px;">
+                        <img class="card-img-top" src="https://materialstyle.github.io/materialstyle/assets/images/suv.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">SUV</h4>
+                            <p class="card-text">
+                                An SUV is a powerful vehicle with four-wheel drive that can be
+                                driven over rough ground. SUV is an abbreviation for 'sport utility
+                                vehicle'.
+                            </p>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center flex-wrap p-2">
+                            <div>
+                                <button type="button" class="btn btn-outline-primary border-0">Read</button>
+                                <button type="button" class="btn btn-outline-primary border-0">Bookmark</button>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-fab mini-fab btn-outline-dark border-0 m-1">
+                                    <i class="bi bi-heart-fill"></i>
+                                </button>
+                                <button type="button" class="btn btn-fab mini-fab btn-outline-dark border-0 m-1">
+                                    <i class="bi bi-share-fill"></i>
+                                </button>
+                                <button type="button" class="btn btn-fab mini-fab btn-outline-dark border-0 m-1">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column justify-content-center flex-wrap gap-2">
+                    <div class="d-flex align-items-center flex-wrap gap-3">
+                        <div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="checkbox1">
+                                <label class="form-check-label" for="checkbox1">Checkbox</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="checkbox2" checked>
+                                <label class="form-check-label" for="checkbox2">Checkbox</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radioSet1" id="radio1">
+                                <label class="form-check-label" for="radio1">Radio</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radioSet1" id="radio2" checked>
+                                <label class="form-check-label" for="radio2">Radio</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="switch1">
+                                <label class="form-check-label" for="switch1">Switch</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="switch2" checked>
+                                <label class="form-check-label" for="switch2">Switch</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center flex-wrap gap-2">
+                        <button type="button" class="btn btn-primary">
+                            Button
+                        </button>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                        <div class="alert alert-primary m-0" role="alert"  style="width:200px;">
+                            Alert
+                        </div>
+
+                        <div class="progress" style="height: 5px; width: 200px;">
+                            <div class="progress-bar progress-bar-indeterminate"></div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center flex-wrap gap-2">
+                        <div class="form-floating" style="width:200px;">
+                            <input type="text" class="form-control" id="firstname"
+                                   placeholder="firstname" autocomplete="off">
+                            <label for="firstname">Firstname</label>
+                        </div>
+
+                        <div class="form-floating form-floating-outlined" style="width:200px;">
+                            <input type="text" class="form-control" id="firstname"
+                                   placeholder="firstname" autocomplete="off">
+                            <label for="firstname">Text field</label>
+                        </div>
+
+                        <div class="form-floating" style="width:200px;">
+                            <select class="form-select">
+                                <option value="" label="blank option"></option>
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                            </select>
+                            <label>Select One</label>
+                        </div>
+
+                        <div class="form-floating form-floating-outlined" style="width:200px;">
+                            <select class="form-select">
+                                <option value="" label="blank option"></option>
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                            </select>
+                            <label>Select One</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="https://materialstyle.github.io/materialstyle/3.1/colors/theming/"
+   class="text-decoration-none">
+    <div class="container mt-4 alert alert-primary d-flex align-items-center gap-3" role="alert" data-bs-theme="dark">
+        <i class="bi bi-box-arrow-up-right fs-2"></i>
+        <span>Click here to learn more about theming and how to utilize CSS and SASS to personalize Material Style</span>
+    </div>
+</a>
+
+<div class="container mt-4">
+    <h2>CSS</h2>
+</div>
+
+<div class="container shadow">
+    <div class="row">
+        <div class="col-md-6 bg-body text-body" data-bs-theme="light">
+            <div class="py-4">
+                <div>
+                    :root, [data-bs-theme="light"] {
+                    <div id="light">
+
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 bg-body text-body" data-bs-theme="dark">
+            <div class="py-4">
+                <div>
+                    [data-bs-theme="dark"] {
+                    <div id="dark">
+
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <h2>SASS</h2>
+</div>
+
+<div class="container shadow">
+    <div class="row">
+        <div class="col-md-12 bg-body text-body" data-bs-theme="light">
+            <div id="sass" class="py-4">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+
+<!-- MDC Ripple JS (Only for Ripple effects) -->
+<script src="https://cdn.jsdelivr.net/npm/@material/ripple@14.0.0/dist/mdc.ripple.min.js"
+        integrity="sha384-9QANVmWxL3S8VRs8x1Q+bF1Zzogpy7P/Qw1+y5qHLdC1ig0EuoHg9VbB1SXyecdZ"
+        crossorigin="anonymous"></script>
+
+<!-- Material Style JS -->
+<script src="https://deploy-preview-100--materialstyle.netlify.app/materialstyle/3.1/dist/js/materialstyle.min.js"></script>
+
+<script src="index.js"></script>
+</body>
+</html>
