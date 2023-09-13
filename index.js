@@ -28,251 +28,251 @@ const themeDarkEmphasisHoverTintAmount = '50';
 const themeDarkBorderSubtleShadeAmount = '40';
 
 function hexToRGB(h) {
-    let r = 0, g = 0, b = 0;
+  let r = 0, g = 0, b = 0;
 
-    // 3 digits
-    if (h.length == 4) {
-        r = "0x" + h[1] + h[1];
-        g = "0x" + h[2] + h[2];
-        b = "0x" + h[3] + h[3];
+  // 3 digits
+  if (h.length == 4) {
+    r = "0x" + h[1] + h[1];
+    g = "0x" + h[2] + h[2];
+    b = "0x" + h[3] + h[3];
 
-        // 6 digits
-    } else if (h.length == 7) {
-        r = "0x" + h[1] + h[2];
-        g = "0x" + h[3] + h[4];
-        b = "0x" + h[5] + h[6];
-    }
+    // 6 digits
+  } else if (h.length == 7) {
+    r = "0x" + h[1] + h[2];
+    g = "0x" + h[3] + h[4];
+    b = "0x" + h[5] + h[6];
+  }
 
-    return {
-        "r": +r,
-        "g": +g,
-        "b": +b
-    };
+  return {
+    "r": +r,
+    "g": +g,
+    "b": +b
+  };
 }
 
 function RGBToHex(r, g, b) {
-    r = r.toString(16);
-    g = g.toString(16);
-    b = b.toString(16);
+  r = r.toString(16);
+  g = g.toString(16);
+  b = b.toString(16);
 
-    if (r.length == 1)
-        r = "0" + r;
-    if (g.length == 1)
-        g = "0" + g;
-    if (b.length == 1)
-        b = "0" + b;
+  if (r.length == 1)
+    r = "0" + r;
+  if (g.length == 1)
+    g = "0" + g;
+  if (b.length == 1)
+    b = "0" + b;
 
-    return "#" + r + g + b;
+  return "#" + r + g + b;
 }
 
 function mix(color1, color2, weight) {
-    let rgb1 = hexToRGB(color1);
-    let rgb2 = hexToRGB(color2);
-    let color = {};
+  let rgb1 = hexToRGB(color1);
+  let rgb2 = hexToRGB(color2);
+  let color = {};
 
-    for (let name in rgb1) {
-        color[name] = Math.round(rgb2[name] + (rgb1[name] - rgb2[name]) * (weight / 100));
-    }
+  for (let name in rgb1) {
+    color[name] = Math.round(rgb2[name] + (rgb1[name] - rgb2[name]) * (weight / 100));
+  }
 
-    return RGBToHex(color['r'], color['g'], color['b']);
+  return RGBToHex(color['r'], color['g'], color['b']);
 };
 
 function luminance(color) {
-    let rgb = hexToRGB(color);
+  let rgb = hexToRGB(color);
 
-    for (let name in rgb) {
-        let value = ((rgb[name] / 255) < .04045 ? ((rgb[name] / 255) / 12.92) : luminanceList[rgb[name]]);
-        rgb[name] = value;
-    }
+  for (let name in rgb) {
+    let value = ((rgb[name] / 255) < .04045 ? ((rgb[name] / 255) / 12.92) : luminanceList[rgb[name]]);
+    rgb[name] = value;
+  }
 
-    return (rgb['r'] * .2126) + (rgb['g'] * .7152) + (rgb['b'] * .0722);
+  return (rgb['r'] * .2126) + (rgb['g'] * .7152) + (rgb['b'] * .0722);
 }
 
 function opaque(background, foreground) {
-    return mix(foreground, background, 100);
+  return mix(foreground, background, 100);
 }
 
 function tintColor(color, weight) {
-    return mix('#ffffff', color, weight);
+  return mix('#ffffff', color, weight);
 }
 
 function shadeColor(color, weight) {
-    return mix('#000000', color, weight);
+  return mix('#000000', color, weight);
 }
 
 function shiftColor(color, weight) {
-    return (weight > 0 ? shadeColor(color, weight) : tintColor(color, -weight));
+  return (weight > 0 ? shadeColor(color, weight) : tintColor(color, -weight));
 }
 
 function contrastRatio(background, foreground = colorContrastLight) {
-    const l1 = luminance(background);
-    const l2 = luminance(opaque(background, foreground));
+  const l1 = luminance(background);
+  const l2 = luminance(opaque(background, foreground));
 
-    return (l1 > l2 ? ((l1 + .05) / (l2 + .05)) : ((l2 + .05) / (l1 + .05)));
+  return (l1 > l2 ? ((l1 + .05) / (l2 + .05)) : ((l2 + .05) / (l1 + .05)));
 }
 
 function colorContrast(background) {
-    const foregrounds = [white, black];
-    let maxRatio = 0;
-    let maxRatioColor = null;
+  const foregrounds = [white, black];
+  let maxRatio = 0;
+  let maxRatioColor = null;
 
-    for (const color of foregrounds) {
-        let cr = contrastRatio(background, color);
-        if (cr > minContrastRatio) {
-            return color;
-        } else if (cr > maxRatio) {
-            maxRatio = cr;
-            maxRatioColor = color;
-        }
+  for (const color of foregrounds) {
+    let cr = contrastRatio(background, color);
+    if (cr > minContrastRatio) {
+      return color;
+    } else if (cr > maxRatio) {
+      maxRatio = cr;
+      maxRatioColor = color;
     }
+  }
 
-    return maxRatioColor;
+  return maxRatioColor;
 }
 
 function generateCss() {
-    let color = document.querySelector('#color-picker').value;
-    let borderRadius = document.querySelector('#border-radius').value;
-    let borderWidth = document.querySelector('#border-width').value;
-    let theme = document.querySelector('#theme').value;
+  let color = document.querySelector('#color-picker').value;
+  let borderRadius = document.querySelector('#border-radius').value;
+  let borderWidth = document.querySelector('#border-width').value;
+  let theme = document.querySelector('#theme').value;
 
-    document.querySelector('#color-picker-value').innerHTML = color;
-    document.querySelector('#border-radius-value').innerHTML = borderRadius + 'rem';
-    document.querySelector('#border-width-value').innerHTML = borderWidth + 'px';
+  document.querySelector('#color-picker-value').innerHTML = color;
+  document.querySelector('#border-radius-value').innerHTML = borderRadius + 'rem';
+  document.querySelector('#border-width-value').innerHTML = borderWidth + 'px';
 
 
-    let contrastingColor = colorContrast(color);
-    let rgb = hexToRGB(color);
+  let contrastingColor = colorContrast(color);
+  let rgb = hexToRGB(color);
 
-    let darkColor = tintColor(color, themeDarkTintAmount);
-    let contrastingDarkColor = colorContrast(darkColor);
-    let darkRgb = hexToRGB(darkColor);
+  let darkColor = tintColor(color, themeDarkTintAmount);
+  let contrastingDarkColor = colorContrast(darkColor);
+  let darkRgb = hexToRGB(darkColor);
 
-    let lightCss = [];
-    let darkCss = [];
+  let lightCss = [];
+  let darkCss = [];
 
-    lightCss['--bs-primary'] = color;
-    lightCss['--bs-primary-hover'] = (contrastingColor == colorContrastLight ? shadeColor(color, themeHoverShadeAmount) : tintColor(color, themeHoverTintAmount));
-    lightCss['--bs-primary-active'] = (contrastingColor == colorContrastLight ? shadeColor(color, themeActiveShadeAmount) : tintColor(color, themeActiveTintAmount));
-    lightCss['--bs-primary-subtle'] = tintColor(color, themeSubtleTintAmount);
-    lightCss['--bs-primary-subtle-hover'] = tintColor(color, themeSubtleHoverTintAmount);
-    lightCss['--bs-primary-subtle-active'] = tintColor(color, themeSubtleActiveTintAmount);
-    lightCss['--bs-primary-emphasis'] = shadeColor(color, themeEmphasisShadeAmount);
-    lightCss['--bs-primary-emphasis-hover'] = shadeColor(color, themeEmphasisHoverShadeAmount);
-    lightCss['--bs-primary-border-subtle'] = tintColor(color, themeBorderSubtleTintAmount);
-    lightCss['--bs-primary-rgb'] = rgb['r'] + ', ' + rgb['g'] + ', ' + rgb['b'];
-    lightCss['--bs-text-on-primary'] = contrastingColor;
-    lightCss['--bs-border-radius'] = borderRadius + 'rem';
-    lightCss['--bs-border-width'] = borderWidth + 'px';
+  lightCss['--bs-primary'] = color;
+  lightCss['--bs-primary-hover'] = (contrastingColor == colorContrastLight ? shadeColor(color, themeHoverShadeAmount) : tintColor(color, themeHoverTintAmount));
+  lightCss['--bs-primary-active'] = (contrastingColor == colorContrastLight ? shadeColor(color, themeActiveShadeAmount) : tintColor(color, themeActiveTintAmount));
+  lightCss['--bs-primary-subtle'] = tintColor(color, themeSubtleTintAmount);
+  lightCss['--bs-primary-subtle-hover'] = tintColor(color, themeSubtleHoverTintAmount);
+  lightCss['--bs-primary-subtle-active'] = tintColor(color, themeSubtleActiveTintAmount);
+  lightCss['--bs-primary-emphasis'] = shadeColor(color, themeEmphasisShadeAmount);
+  lightCss['--bs-primary-emphasis-hover'] = shadeColor(color, themeEmphasisHoverShadeAmount);
+  lightCss['--bs-primary-border-subtle'] = tintColor(color, themeBorderSubtleTintAmount);
+  lightCss['--bs-primary-rgb'] = rgb['r'] + ', ' + rgb['g'] + ', ' + rgb['b'];
+  lightCss['--bs-text-on-primary'] = contrastingColor;
+  lightCss['--bs-border-radius'] = borderRadius + 'rem';
+  lightCss['--bs-border-width'] = borderWidth + 'px';
 
-    darkCss['--bs-primary'] = darkColor;
-    darkCss['--bs-primary-hover'] = (contrastingDarkColor == colorContrastLight ? shadeColor(darkColor, themeDarkHoverShadeAmount) : tintColor(darkColor, themeDarkHoverTintAmount));
-    darkCss['--bs-primary-active'] = (contrastingDarkColor == colorContrastLight ? shadeColor(darkColor, themeDarkActiveShadeAmount) : tintColor(darkColor, themeDarkActiveTintAmount));
-    darkCss['--bs-primary-subtle'] = shadeColor(color, themeDarkSubtleShadeAmount);
-    darkCss['--bs-primary-subtle-hover'] = shadeColor(color, themeDarkSubtleHoverShadeAmount);
-    darkCss['--bs-primary-subtle-active'] = shadeColor(color, themeDarkSubtleActiveShadeAmount);
-    darkCss['--bs-primary-emphasis'] = tintColor(color, themeDarkEmphasisTintAmount);
-    darkCss['--bs-primary-emphasis-hover'] = tintColor(color, themeDarkEmphasisHoverTintAmount);
-    darkCss['--bs-primary-border-subtle'] = shadeColor(color, themeDarkBorderSubtleShadeAmount);
-    darkCss['--bs-primary-rgb'] = darkRgb['r'] + ', ' + darkRgb['g'] + ', ' + darkRgb['b'];
-    darkCss['--bs-text-on-primary'] = contrastingDarkColor;
+  darkCss['--bs-primary'] = darkColor;
+  darkCss['--bs-primary-hover'] = (contrastingDarkColor == colorContrastLight ? shadeColor(darkColor, themeDarkHoverShadeAmount) : tintColor(darkColor, themeDarkHoverTintAmount));
+  darkCss['--bs-primary-active'] = (contrastingDarkColor == colorContrastLight ? shadeColor(darkColor, themeDarkActiveShadeAmount) : tintColor(darkColor, themeDarkActiveTintAmount));
+  darkCss['--bs-primary-subtle'] = shadeColor(color, themeDarkSubtleShadeAmount);
+  darkCss['--bs-primary-subtle-hover'] = shadeColor(color, themeDarkSubtleHoverShadeAmount);
+  darkCss['--bs-primary-subtle-active'] = shadeColor(color, themeDarkSubtleActiveShadeAmount);
+  darkCss['--bs-primary-emphasis'] = tintColor(color, themeDarkEmphasisTintAmount);
+  darkCss['--bs-primary-emphasis-hover'] = tintColor(color, themeDarkEmphasisHoverTintAmount);
+  darkCss['--bs-primary-border-subtle'] = shadeColor(color, themeDarkBorderSubtleShadeAmount);
+  darkCss['--bs-primary-rgb'] = darkRgb['r'] + ', ' + darkRgb['g'] + ', ' + darkRgb['b'];
+  darkCss['--bs-text-on-primary'] = contrastingDarkColor;
 
-    document.querySelector('#light').innerHTML = '';
-    document.querySelector('#dark').innerHTML = '';
-    document.body.style.backgroundColor = lightCss['--bs-primary'];
-    document.body.style.color = lightCss['--bs-text-on-primary'];
+  document.querySelector('#light').innerHTML = '';
+  document.querySelector('#dark').innerHTML = '';
+  document.body.style.backgroundColor = lightCss['--bs-primary'];
+  document.body.style.color = lightCss['--bs-text-on-primary'];
 
-    let c = ':root, [data-bs-theme="light"] {';
-    for (let cssKey in lightCss) {
-        let lightCssContainer = document.createElement('div');
-        lightCssContainer.className = 'd-flex align-items-stretch gap-2';
+  let c = ':root, [data-bs-theme="light"] {';
+  for (let cssKey in lightCss) {
+    let lightCssContainer = document.createElement('div');
+    lightCssContainer.className = 'd-flex align-items-stretch gap-2';
 
-        let colorBox = document.createElement('div');
-        colorBox.className = 'flex-shrink-0';
-        colorBox.style.width = '30px';
-        colorBox.style.backgroundColor = cssKey.includes('rgb') ? `rgb(${lightCss[cssKey]})` : lightCss[cssKey];
+    let colorBox = document.createElement('div');
+    colorBox.className = 'flex-shrink-0';
+    colorBox.style.width = '30px';
+    colorBox.style.backgroundColor = cssKey.includes('rgb') ? `rgb(${lightCss[cssKey]})` : lightCss[cssKey];
 
-        c += cssKey + ': ' + lightCss[cssKey] + ';';
+    c += cssKey + ': ' + lightCss[cssKey] + ';';
 
-        let cssLine = document.createElement('span');
-        cssLine.innerHTML = (theme === 'primary' ? cssKey : cssKey.replace('primary', theme)) + ': ' + lightCss[cssKey] + ';';
+    let cssLine = document.createElement('span');
+    cssLine.innerHTML = (theme === 'primary' ? cssKey : cssKey.replace('primary', theme)) + ': ' + lightCss[cssKey] + ';';
 
-        lightCssContainer.append(colorBox);
-        lightCssContainer.append(cssLine);
+    lightCssContainer.append(colorBox);
+    lightCssContainer.append(cssLine);
 
-        document.querySelector('#light').append(lightCssContainer);
-    }
+    document.querySelector('#light').append(lightCssContainer);
+  }
 
-    document.styleSheets[3].deleteRule(0);
-    document.styleSheets[3].insertRule(c + '}', 0);
+  document.styleSheets[3].deleteRule(0);
+  document.styleSheets[3].insertRule(c + '}', 0);
 
-    c = '[data-bs-theme="dark"] {';
-    for (let cssKey in darkCss) {
-        let darkCssContainer = document.createElement('div');
-        darkCssContainer.className = 'd-flex align-items-stretch gap-2';
+  c = '[data-bs-theme="dark"] {';
+  for (let cssKey in darkCss) {
+    let darkCssContainer = document.createElement('div');
+    darkCssContainer.className = 'd-flex align-items-stretch gap-2';
 
-        let colorBox = document.createElement('div');
-        colorBox.className = 'flex-shrink-0';
-        colorBox.style.width = '30px';
-        colorBox.style.backgroundColor = cssKey.includes('rgb') ? `rgb(${darkCss[cssKey]})` : darkCss[cssKey];
+    let colorBox = document.createElement('div');
+    colorBox.className = 'flex-shrink-0';
+    colorBox.style.width = '30px';
+    colorBox.style.backgroundColor = cssKey.includes('rgb') ? `rgb(${darkCss[cssKey]})` : darkCss[cssKey];
 
-        c += cssKey + ': ' + darkCss[cssKey] + ';';
+    c += cssKey + ': ' + darkCss[cssKey] + ';';
 
-        let cssLine = document.createElement('span');
-        cssLine.innerHTML = (theme === 'primary' ? cssKey : cssKey.replace('primary', theme)) + ': ' + darkCss[cssKey] + ';';
+    let cssLine = document.createElement('span');
+    cssLine.innerHTML = (theme === 'primary' ? cssKey : cssKey.replace('primary', theme)) + ': ' + darkCss[cssKey] + ';';
 
-        darkCssContainer.append(colorBox);
-        darkCssContainer.append(cssLine);
+    darkCssContainer.append(colorBox);
+    darkCssContainer.append(cssLine);
 
-        document.querySelector('#dark').append(darkCssContainer);
-    }
+    document.querySelector('#dark').append(darkCssContainer);
+  }
 
-    document.styleSheets[3].deleteRule(1);
-    document.styleSheets[3].insertRule(c + '}', 1);
+  document.styleSheets[3].deleteRule(1);
+  document.styleSheets[3].insertRule(c + '}', 1);
 
-    document.querySelector('#sass').innerHTML =
-      '$' + theme + ': ' + color + ';<br>$border-radius: ' + borderRadius + 'rem;<br>$border-width: ' + borderWidth + 'px;';
+  document.querySelector('#sass').innerHTML =
+    '$' + theme + ': ' + color + ';<br>$border-radius: ' + borderRadius + 'rem;<br>$border-width: ' + borderWidth + 'px;';
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  generateCss();
+
+  document.querySelector('#color-picker').addEventListener("input", function () {
     generateCss();
+  }, false);
 
-    document.querySelector('#color-picker').addEventListener("input", function () {
-        generateCss();
-    }, false);
+  document.querySelector('#border-radius').addEventListener("input", function () {
+    generateCss();
+  }, false);
 
-    document.querySelector('#border-radius').addEventListener("input", function () {
-        generateCss();
-    }, false);
+  document.querySelector('#border-width').addEventListener("input", function () {
+    generateCss();
+  }, false);
 
-    document.querySelector('#border-width').addEventListener("input", function () {
-        generateCss();
-    }, false);
+  document.querySelector('#theme').addEventListener("change", function () {
+    generateCss();
+  }, false);
 
-    document.querySelector('#theme').addEventListener("change", function () {
-        generateCss();
-    }, false);
+  document.querySelector('#color-mode-switch').addEventListener("input", function () {
+    const components = document.querySelector('#components');
+    const colorModeLabel = document.querySelector('#color-mode-switch + label');
+    if (event.target.checked) {
+      components.setAttribute('data-bs-theme', 'dark');
+      colorModeLabel.innerHTML = 'ON';
+    } else {
+      components.setAttribute('data-bs-theme', 'light');
+      colorModeLabel.innerHTML = 'OFF';
+    }
+  }, false);
 
-    document.querySelector('#color-mode-switch').addEventListener("input", function () {
-        const components = document.querySelector('#components');
-        const colorModeLabel = document.querySelector('#color-mode-switch + label');
-        if (event.target.checked) {
-            components.setAttribute('data-bs-theme', 'dark');
-            colorModeLabel.innerHTML = 'ON';
-        } else {
-            components.setAttribute('data-bs-theme', 'light');
-            colorModeLabel.innerHTML = 'OFF';
-        }
-    }, false);
+  // Initialize Text fields
+  var textFieldList = [].slice.call(document.querySelectorAll('.form-control'))
+  var textFields = textFieldList.map(function (textField) {
+    return new materialstyle.TextField(textField)
+  })
 
-    // Initialize Text fields
-    var textFieldList = [].slice.call(document.querySelectorAll('.form-control'))
-    var textFields = textFieldList.map(function (textField) {
-        return new materialstyle.TextField(textField)
-    })
-
-    // Initialize Text fields
-    var selectFieldList = [].slice.call(document.querySelectorAll('.form-select'))
-    var selectFields = selectFieldList.map(function (selectField) {
-        return new materialstyle.SelectField(selectField)
-    })
+  // Initialize Text fields
+  var selectFieldList = [].slice.call(document.querySelectorAll('.form-select'))
+  var selectFields = selectFieldList.map(function (selectField) {
+    return new materialstyle.SelectField(selectField)
+  })
 });
