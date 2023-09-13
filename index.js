@@ -27,6 +27,16 @@ const themeDarkEmphasisTintAmount = '55';
 const themeDarkEmphasisHoverTintAmount = '50';
 const themeDarkBorderSubtleShadeAmount = '40';
 
+const themeColors = {
+  primary: '#0d6efd',
+  secondary: '#71767b',
+  tertiary: '#d63384',
+  success: '#198754',
+  info: '#0dcaf0',
+  warning: '#ffc107',
+  danger: '#dc3545'
+};
+
 function hexToRGB(h) {
   let r = 0, g = 0, b = 0;
 
@@ -249,6 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, false);
 
   document.querySelector('#theme').addEventListener("change", function () {
+    document.querySelector('#color-picker').value = themeColors[this.value];
     generateCss();
   }, false);
 
