@@ -42,3 +42,8 @@ body {
     --bs-border-radius: var(--bs-border-radius-pill);
     --bs-border-width: 1px;
 }
+
+.nav-link {
+    color: inherit;
+    text-decoration: underline;
+}
