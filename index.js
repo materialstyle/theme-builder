@@ -112,7 +112,7 @@ function contrastRatio(background, foreground = colorContrastLight) {
 }
 
 function colorContrast(background) {
-    const foregrounds = [colorContrastLight, colorContrastDark, white, black];
+    const foregrounds = [white, black];
     let maxRatio = 0;
     let maxRatioColor = null;
 
@@ -133,6 +133,12 @@ function generateCss() {
     let color = document.querySelector('#color-picker').value;
     let borderRadius = document.querySelector('#border-radius').value;
     let borderWidth = document.querySelector('#border-width').value;
+    let theme = document.querySelector('#theme').value;
+
+    document.querySelector('#color-picker-value').innerHTML = color;
+    document.querySelector('#border-radius-value').innerHTML = borderRadius + 'rem';
+    document.querySelector('#border-width-value').innerHTML = borderWidth + 'px';
+
 
     let contrastingColor = colorContrast(color);
     let rgb = hexToRGB(color);
@@ -188,7 +194,7 @@ function generateCss() {
         c += cssKey + ': ' + lightCss[cssKey] + ';';
 
         let cssLine = document.createElement('span');
-        cssLine.innerHTML = cssKey + ': ' + lightCss[cssKey] + ';';
+        cssLine.innerHTML = (theme === 'primary' ? cssKey : cssKey.replace('primary', theme)) + ': ' + lightCss[cssKey] + ';';
 
         lightCssContainer.append(colorBox);
         lightCssContainer.append(cssLine);
@@ -212,7 +218,7 @@ function generateCss() {
         c += cssKey + ': ' + darkCss[cssKey] + ';';
 
         let cssLine = document.createElement('span');
-        cssLine.innerHTML = cssKey + ': ' + darkCss[cssKey] + ';';
+        cssLine.innerHTML = (theme === 'primary' ? cssKey : cssKey.replace('primary', theme)) + ': ' + darkCss[cssKey] + ';';
 
         darkCssContainer.append(colorBox);
         darkCssContainer.append(cssLine);
@@ -224,7 +230,7 @@ function generateCss() {
     document.styleSheets[3].insertRule(c + '}', 1);
 
     document.querySelector('#sass').innerHTML =
-        '$primary: ' + color + ';<br>$border-radius: ' + borderRadius + 'rem;<br>$border-width: ' + borderWidth + 'px;';
+      '$' + theme + ': ' + color + ';<br>$border-radius: ' + borderRadius + 'rem;<br>$border-width: ' + borderWidth + 'px;';
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -239,6 +245,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, false);
 
     document.querySelector('#border-width').addEventListener("input", function () {
+        generateCss();
+    }, false);
+
+    document.querySelector('#theme').addEventListener("change", function () {
         generateCss();
     }, false);
 

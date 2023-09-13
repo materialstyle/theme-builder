@@ -19,7 +19,7 @@
     <div class="py-2">
         <div class="d-inline-flex align-items-center gap-1">
             <img src="https://materialstyle.github.io/assets/images/MSIconNewColorV2.svg" alt="Material Style Logo" style="width:40px; height:40px;">
-            <label id="site-name">Material Style theme builder</label><span class="badge rounded-pill text-bg-info">For Material Style v3.1</span><span class="badge rounded-pill text-bg-warning">In progress</span>
+            <label id="site-name">Material Style theme builder</label><span class="badge rounded-pill text-bg-info">For Material Style v3.1</span><span class="badge rounded-pill text-bg-warning">v1.0.0-alpha1</span>
         </div>
     </div>
     <p class="mt-3 fs-4">Personalize Material Style to reflect your product's brand identity</p>
@@ -28,18 +28,25 @@
 
 <div class="container shadow">
     <div class="row">
-        <div class="col-md-12 bg-white text-body d-flex align-items-center flex-wrap py-3 gap-3 border-bottom border-primary" data-bs-theme="light" style="--bs-border-width: 1px;">
+        <div class="col-md-12 bg-white text-body d-flex align-items-center flex-wrap py-3 gap-3" data-bs-theme="light">
+            <div class="d-flex align-items-center flex-wrap gap-1">
+                <div class="form-floating form-floating-outlined" style="width: 200px; --bs-border-width: 1px; --bs-border-radius: 0.375rem;">
+                    <select id="theme" class="form-select">
+                        <option value="primary">Primary</option>
+                        <option value="secondary">Secondary</option>
+                        <option value="tertiary">Tertiary</option>
+                        <option value="success">Success</option>
+                        <option value="info">Info</option>
+                        <option value="warning">Warning</option>
+                        <option value="danger">Danger</option>
+                    </select>
+                    <label for="theme">Theme</label>
+                </div>
+            </div>
             <div class="d-flex align-items-center flex-wrap gap-1">
                 <label for="color-picker" class="form-label mb-0">Color</label>
                 <input type="color" class="form-control form-control-color p-1" id="color-picker" value="#6f42c1" title="Choose your color">
-            </div>
-            <div class="d-flex align-items-center flex-wrap gap-1">
-                <label for="border-radius" class="form-label mb-0">Border radius</label>
-                <input type="range" class="form-range" id="border-radius" min="0" max="2" step="0.005" value="0.375" style="width: 250px;">
-            </div>
-            <div class="d-flex align-items-center flex-wrap gap-1">
-                <label for="border-width" class="form-label mb-0">Border width</label>
-                <input type="range" class="form-range" id="border-width" min="1" max="5" step="1" value="1" style="width: 250px;">
+                <span id="color-picker-value">#6f42c1</span>
             </div>
             <div class="d-flex align-items-center flex-wrap gap-1">
                 <label for="color-mode-switch">Dark Mode</label>
@@ -47,6 +54,18 @@
                     <input class="form-check-input" type="checkbox" id="color-mode-switch">
                     <label class="form-check-label" for="color-mode-switch">OFF</label>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-12 bg-white text-body d-flex align-items-center flex-wrap pb-3 gap-3 border-bottom border-primary" data-bs-theme="light" style="--bs-border-width: 1px;">
+            <div class="d-flex align-items-center flex-wrap gap-1">
+                <label for="border-radius" class="form-label mb-0">Border radius</label>
+                <input type="range" class="form-range" id="border-radius" min="0" max="2" step="0.005" value="0.375" style="width: 250px;">
+                <span id="border-radius-value">0.375rem</span>
+            </div>
+            <div class="d-flex align-items-center flex-wrap gap-1">
+                <label for="border-width" class="form-label mb-0">Border width</label>
+                <input type="range" class="form-range" id="border-width" min="1" max="5" step="1" value="1" style="width: 250px;">
+                <span id="border-width-value">1px</span>
             </div>
         </div>
     </div>
