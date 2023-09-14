@@ -3,6 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Customize Material Style themes effortlessly with our Theme Builder tool. Select theme colors, border settings, and preview changes in real-time.">
+    <meta name="keywords" content="Material Style, Theme Builder, CSS variables, SASS customization, web development, theming">
+
+    <meta property="og:title" content="Material Style Theme Builder">
+    <meta property="og:description" content="Customize Material Style themes effortlessly with our Theme Builder tool. Select theme colors, border settings, and preview changes in real-time.">
+    <meta property="og:image" content="https://materialstyle.github.io/assets/images/MSIconNewGreyBg.jpg">
+    <meta property="og:url" content="https://materialstyle.github.io/theme-builder">
+
+    <link rel="canonical" href="https://materialstyle.github.io/theme-builder">
+
     <title>Material Style theme builder</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +31,7 @@
             <img src="https://materialstyle.github.io/assets/images/MSIconNewColorV2.svg" alt="Material Style Logo"
                  style="width:40px; height:40px;">
             <h1 class="fs-5 m-0 text-center" id="site-name">Material Style theme builder</h1>
-            <span class="text-center">
+            <span class="text-center mx-1">
                 <span class="badge rounded-pill text-bg-warning">v1.0.0-alpha1</span>
                 <span class="badge rounded-pill text-bg-info">For Material Style v3.1</span>
             </span>
@@ -35,7 +45,7 @@
 </div>
 
 <div class="container">
-    <p class="mt-3 fs-3">Personalize Material Style to reflect your product's brand identity</p>
+    <h2 class="mt-3 fs-3">Personalize Material Style to reflect your product's brand identity</h2>
     <p>Utilize this tool to effortlessly modify theme colors, border radius, and border widths, as it automatically generates the necessary CSS and SASS variables for you.</p>
     <ol>
         <li>Choose the theme (primary, secondary, ...) you'd like to update.</li>
@@ -125,13 +135,13 @@
                                 <button type="button" class="btn btn-outline-primary border-0">Bookmark</button>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-fab mini-fab btn-outline-dark border-0 m-1">
+                                <button type="button" class="btn btn-fab mini-fab btn-outline-dark border-0 m-1" aria-label="like">
                                     <i class="bi bi-heart-fill"></i>
                                 </button>
-                                <button type="button" class="btn btn-fab mini-fab btn-outline-dark border-0 m-1">
+                                <button type="button" class="btn btn-fab mini-fab btn-outline-dark border-0 m-1" aria-label="share">
                                     <i class="bi bi-share-fill"></i>
                                 </button>
-                                <button type="button" class="btn btn-fab mini-fab btn-outline-dark border-0 m-1">
+                                <button type="button" class="btn btn-fab mini-fab btn-outline-dark border-0 m-1" aria-label="menu">
                                     <i class="bi bi-three-dots-vertical"></i>
                                 </button>
                             </div>
@@ -202,37 +212,37 @@
 
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         <div class="form-floating" style="width:200px;">
-                            <input type="text" class="form-control" id="firstname"
+                            <input type="text" class="form-control" id="textField"
                                    placeholder="firstname" autocomplete="off">
-                            <label for="firstname">Firstname</label>
+                            <label for="textField">Firstname</label>
                         </div>
 
                         <div class="form-floating form-floating-outlined" style="width:200px;">
-                            <input type="text" class="form-control" id="firstname"
+                            <input type="text" class="form-control" id="textFieldOutlined"
                                    placeholder="firstname" autocomplete="off">
-                            <label for="firstname">Text field</label>
+                            <label for="textFieldOutlined">Text field</label>
                         </div>
 
                         <div class="form-floating" style="width:200px;">
-                            <select class="form-select">
+                            <select class="form-select" id="select">
                                 <option value="" label="blank option"></option>
                                 <option value="1">Option 1</option>
                                 <option value="2">Option 2</option>
                                 <option value="3">Option 3</option>
                                 <option value="4">Option 4</option>
                             </select>
-                            <label>Select One</label>
+                            <label for="select">Select One</label>
                         </div>
 
                         <div class="form-floating form-floating-outlined" style="width:200px;">
-                            <select class="form-select">
+                            <select class="form-select" id="selectOutlined">
                                 <option value="" label="blank option"></option>
                                 <option value="1">Option 1</option>
                                 <option value="2">Option 2</option>
                                 <option value="3">Option 3</option>
                                 <option value="4">Option 4</option>
                             </select>
-                            <label>Select One</label>
+                            <label for="selectOutlined">Select One</label>
                         </div>
                     </div>
 
